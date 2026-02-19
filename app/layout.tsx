@@ -1,40 +1,41 @@
-import { RootProvider } from 'fumadocs-ui/provider/next'
-import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
-import { Footer } from '@/components/footer'
-import './globals.css'
+import { RootProvider } from "fumadocs-ui/provider/next";
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import { Footer } from "@/components/footer";
+import "./globals.css";
 
 const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-})
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
 
 const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: 'Token UI',
-  description: 'Component library for Design System Documentation',
+  metadataBase: new URL("https://tokenui.dev"),
+  title: "Token UI",
+  description: "Component library for Design System Documentation",
   openGraph: {
-    title: 'Token UI',
-    description: 'Component library for Design System Documentation',
+    title: "Token UI",
+    description: "Component library for Design System Documentation",
     images: [
       {
-        url: '/og-image.png',
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: 'Token UI',
+        alt: "Token UI",
       },
     ],
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -47,5 +48,5 @@ export default function RootLayout({
         </RootProvider>
       </body>
     </html>
-  )
+  );
 }
