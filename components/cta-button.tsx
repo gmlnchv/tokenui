@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import posthog from 'posthog-js'
 import type { ReactNode } from 'react'
 import { Button, type ButtonProps } from '@/registry/ui/button'
+import { cn } from '@/lib/utils'
 
 type CTAButtonProps = Omit<ButtonProps, 'onClick'> & {
   href: string
@@ -23,7 +24,14 @@ export function CTAButton({ href, children, ...buttonProps }: CTAButtonProps) {
   }
 
   return (
-    <Button {...buttonProps} onClick={handleClick}>
+    <Button
+      {...buttonProps}
+      onClick={handleClick}
+      className={cn(
+        'rounded-full bg-cararra-950 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-cararra-800 focus-visible:outline-cararra-950',
+        buttonProps.className
+      )}
+    >
       {children}
     </Button>
   )
