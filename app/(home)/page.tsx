@@ -10,17 +10,31 @@ import { NumberToken } from "@/registry/components/number-token";
 import { SpacingToken } from "@/registry/components/spacing-token";
 import { TypographyToken } from "@/registry/components/typography-token";
 import { CTAButton } from "@/components/cta-button";
-import Image from "next/image";
 import {
   ComponentRegistryBadge,
   BuiltForLogos,
 } from "@/components/brand-badges";
+import { TokenGridBackground } from "@/components/token-grid-background";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-cararra-50">
+    <div className="min-h-screen bg-cararra-50 relative overflow-hidden">
+      {/* Dynamic Background behind Hero */}
+      <div
+        className="absolute inset-x-0 top-0 h-[800px] md:h-[1200px] w-[150vw] -left-[25vw] select-none pointer-events-none z-0"
+        style={{
+          // Fade out at top-left (for text/nav) and bottom edges
+          maskImage:
+            "radial-gradient(ellipse 90% 80% at 65% 40%, black 20%, transparent 90%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 90% 80% at 65% 40%, black 20%, transparent 90%)",
+        }}
+      >
+        <TokenGridBackground className="opacity-80" />
+      </div>
+
       {/* Hero Section */}
-      <section className="pb-16 pt-24 md:pb-24">
+      <section className="relative z-10 pb-16 pt-24 md:pt-32 md:pb-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="max-w-5xl">
             <div className="mb-10">
@@ -48,24 +62,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Painting + Browser Mockup Section */}
-      <section className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Olive container holding the painting, with browser overlapping */}
-        <div className="relative rounded-[2.5rem] bg-cararra-500 p-8 md:p-16 lg:p-24 overflow-hidden">
-          {/* Painting as background of the olive container */}
-          <div className="absolute inset-0 select-none">
-            <Image
-              src="/backgrounds/dutch-landscape-hires.png"
-              alt="Dutch Golden Age Landscape"
-              fill
-              className="object-cover"
-              priority
-              quality={100}
-            />
-          </div>
-
+      {/* Browser Mockup Section */}
+      <section className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 mt-12 md:mt-20">
+        {/* Container holding the browser */}
+        <div className="relative rounded-[2.5rem] bg-cararra-50/60 backdrop-blur-xl border border-cararra-200/80 p-8 md:p-16 lg:p-24 overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex items-center justify-center">
           {/* Browser Mockup centered and narrower */}
-          <div className="relative z-10 mx-auto max-w-3xl">
+          <div className="relative z-10 w-full max-w-4xl">
             <div className="overflow-hidden rounded-xl border border-cararra-300/50 bg-white shadow-2xl">
               {/* Browser Header */}
               <div className="flex items-center justify-between border-b border-cararra-200 bg-cararra-100 px-4 py-2.5">
