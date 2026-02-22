@@ -57,9 +57,53 @@ const ColorSwatchLabel = React.forwardRef<
 
 ColorSwatchLabel.displayName = "ColorSwatchLabel";
 
+type ColorSwatchPartPosition =
+  | "top-left"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-right"
+  | "center";
+
+type ColorSwatchPartProps = HTMLAttributes<HTMLDivElement> & {
+  position?: ColorSwatchPartPosition;
+};
+
+const positionVariants: Record<ColorSwatchPartPosition, string> = {
+  "top-left": "top-2 left-2 text-left",
+  "top-right": "top-2 right-2 text-right",
+  "bottom-left": "bottom-2 left-2 text-left",
+  "bottom-right": "bottom-2 right-2 text-right",
+  center: "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center",
+};
+
+const ColorSwatchPart = React.forwardRef<HTMLDivElement, ColorSwatchPartProps>(
+  (
+    { className, position = "bottom-right", children, ...props },
+    forwardedRef,
+  ) => {
+    return (
+      <div
+        ref={forwardedRef}
+        className={cn(
+          "absolute flex flex-col p-1 text-sm font-medium",
+          positionVariants[position],
+          className,
+        )}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  },
+);
+
+ColorSwatchPart.displayName = "ColorSwatchPart";
+
 export {
   ColorSwatch,
   ColorSwatchLabel,
+  ColorSwatchPart,
   type ColorSwatchProps,
   type ColorSwatchLabelProps,
+  type ColorSwatchPartProps,
 };

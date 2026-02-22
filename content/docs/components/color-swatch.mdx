@@ -6,6 +6,7 @@ description: "A primitive component for displaying a single color swatch with an
 import {
   ColorSwatch,
   ColorSwatchLabel,
+  ColorSwatchPart,
 } from "@/registry/components/color-swatch";
 
 ## Overview
@@ -99,6 +100,66 @@ Compose \`ColorSwatch\` inside a CSS Grid for advanced layouts.
   [@AlexCristache](https://x.com/AlexCristache)
 </small>
 
+### Corners and Center Placement
+
+You can place text, badges, or numbers freely across the swatch using the \`ColorSwatchPart\` primitive. It allows setting content in the corners and the center.
+
+<Preview code={`import { ColorSwatch, ColorSwatchPart } from '@/registry/components/color-swatch'
+
+  <div className="flex w-full max-w-2xl gap-2 h-40 font-sans tracking-tight">
+    {/* Primary */}
+    <ColorSwatch value="#6200ee" className="flex-1 text-white">
+      <ColorSwatchPart position="top-left" className="text-base font-medium">Primary</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-2 pl-2">
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-bold text-black">1</span>
+      </ColorSwatchPart>
+      <ColorSwatchPart position="bottom-right" className="pb-2 pr-2 text-sm">#6200EE</ColorSwatchPart>
+    </ColorSwatch>
+    {/* Secondary */}
+    <ColorSwatch value="#03dac6" className="flex-1 text-black">
+      <ColorSwatchPart position="top-left" className="text-base font-medium">Secondary</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-2 pl-2">
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-xs font-bold text-white">2</span>
+      </ColorSwatchPart>
+      <ColorSwatchPart position="bottom-right" className="pb-2 pr-2 text-sm">#03DAC6</ColorSwatchPart>
+    </ColorSwatch>
+    {/* Surface */}
+    <ColorSwatch value="#ffffff" className="flex-1 text-black shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]">
+      <ColorSwatchPart position="top-left" className="text-base font-medium">Surface</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-2 pl-2">
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-xs font-bold text-white">3</span>
+      </ColorSwatchPart>
+      <ColorSwatchPart position="bottom-right" className="pb-2 pr-2 text-sm">#FFFFFF</ColorSwatchPart>
+    </ColorSwatch>
+  </div>`}>
+  <div className="flex w-full max-w-2xl gap-2 h-40 font-sans tracking-tight">
+    {/* Primary */}
+    <ColorSwatch value="#6200ee" className="flex-1 text-white">
+      <ColorSwatchPart position="top-left" className="text-base font-medium">Primary</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-2 pl-2">
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-xs font-bold text-black">1</span>
+      </ColorSwatchPart>
+      <ColorSwatchPart position="bottom-right" className="pb-2 pr-2 text-sm">#6200EE</ColorSwatchPart>
+    </ColorSwatch>
+    {/* Secondary */}
+    <ColorSwatch value="#03dac6" className="flex-1 text-black">
+      <ColorSwatchPart position="top-left" className="text-base font-medium">Secondary</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-2 pl-2">
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-xs font-bold text-white">2</span>
+      </ColorSwatchPart>
+      <ColorSwatchPart position="bottom-right" className="pb-2 pr-2 text-sm">#03DAC6</ColorSwatchPart>
+    </ColorSwatch>
+    {/* Surface */}
+    <ColorSwatch value="#ffffff" className="flex-1 text-black shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]">
+      <ColorSwatchPart position="top-left" className="text-base font-medium">Surface</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-2 pl-2">
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-black text-xs font-bold text-white">3</span>
+      </ColorSwatchPart>
+      <ColorSwatchPart position="bottom-right" className="pb-2 pr-2 text-sm">#FFFFFF</ColorSwatchPart>
+    </ColorSwatch>
+  </div>
+</Preview>
+
 ## API Reference
 
 ### ColorSwatch
@@ -117,13 +178,39 @@ export type ColorSwatchProps = {
 `}
 />
 
+### ColorSwatchPart
+
+Used within `ColorSwatch` to position text or visual elements around the swatch freely.
+
+<AutoTypeTable
+  name="ColorSwatchPartProps"
+  type={`
+export type ColorSwatchPartProps = {
+  /**
+   * The corner or center position where the part is anchored.
+   * @default "bottom-right"
+   */
+  position?: "top-left" | "top-right" | "bottom-left" | "bottom-right" | "center";
+  /** Additional styling */
+  className?: string;
+  /** Content to display */
+  children?: React.ReactNode;
+}
+`}
+/>
+
 ### ColorSwatchLabel
 
-Label displayed hovering inside a \`ColorSwatch\` element on pointer hover.
+Label displayed hovering inside a `ColorSwatch` element on pointer hover.
 
 <AutoTypeTable
   name="ColorSwatchLabelProps"
   type={`
-export type ColorSwatchLabelProps = HTMLAttributes<HTMLDivElement>
+export type ColorSwatchLabelProps = {
+  /** Additional styling */
+  className?: string;
+  /** Label content to display on hover */
+  children?: React.ReactNode;
+}
 `}
 />
