@@ -4,6 +4,18 @@ import type { HTMLAttributes } from "react";
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
+type ColorSwatchContextValue = {
+  value: string;
+};
+
+const ColorSwatchContext = React.createContext<ColorSwatchContextValue | null>(
+  null,
+);
+
+export function useColorSwatch() {
+  return React.useContext(ColorSwatchContext);
+}
+
 type ColorSwatchProps = HTMLAttributes<HTMLDivElement> & {
   /** Color value (hex, rgb, hsl, etc.) */
   value: string;
@@ -14,18 +26,20 @@ type ColorSwatchProps = HTMLAttributes<HTMLDivElement> & {
 const ColorSwatch = React.forwardRef<HTMLDivElement, ColorSwatchProps>(
   ({ value, name, className, children, ...props }, forwardedRef) => {
     return (
-      <div
-        ref={forwardedRef}
-        className={cn(
-          "group relative flex-1 transition-all duration-200 ease-out",
-          className,
-        )}
-        style={{ backgroundColor: value }}
-        title={name || value}
-        {...props}
-      >
-        {children}
-      </div>
+      <ColorSwatchContext.Provider value={{ value }}>
+        <div
+          ref={forwardedRef}
+          className={cn(
+            "group relative flex-1 transition-all duration-200 ease-out",
+            className,
+          )}
+          style={{ backgroundColor: value }}
+          title={name || value}
+          {...props}
+        >
+          {children}
+        </div>
+      </ColorSwatchContext.Provider>
     );
   },
 );
