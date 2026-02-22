@@ -1,18 +1,20 @@
 {
+  "title": "Components",
+  "icon": "Package",
   "pages": [
-    "---[Boxes]Design Tokens---",
+    "---Token---",
     "token",
     "color-token",
+    "typography-token",
+    "spacing-token",
+    "radius-token",
     "elevation-token",
     "duration-token",
-    "spacing-token",
-    "typography-token",
-    "order-token",
-    "radius-token",
     "font-family-token",
     "font-weight-token",
     "number-token",
-    "---[Palette]Color---",
+    "order-token",
+    "---Color---",
     "color-palette"
   ]
 }
