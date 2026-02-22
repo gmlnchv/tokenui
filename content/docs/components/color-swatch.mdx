@@ -8,6 +8,11 @@ import {
   ColorSwatchLabel,
   ColorSwatchPart,
 } from "@/registry/components/color-swatch";
+import {
+  ColorContrast,
+  ColorContrastRatio,
+  ColorContrastBadge,
+} from "@/registry/components/color-contrast";
 
 ## Overview
 
@@ -99,6 +104,59 @@ Compose \`ColorSwatch\` inside a CSS Grid for advanced layouts.
   [#MindfulPalettes](https://x.com/AlexCristache) no 056 by
   [@AlexCristache](https://x.com/AlexCristache)
 </small>
+
+Since `ColorContrast` hooks directly into the swatch's context, you can easily display calculated accessibility scores.
+
+For more advanced examples, manual override options (like APCA), and API details, check out the [Color Contrast](/docs/components/color-contrast) documentation.
+
+<Preview code={`import { ColorSwatch, ColorSwatchPart } from '@/registry/components/color-swatch'
+import { ColorContrast, ColorContrastRatio, ColorContrastBadge } from '@/registry/components/color-contrast'
+
+  <div className="flex w-full max-w-sm gap-2 h-40 font-sans tracking-tight">
+    <ColorSwatch value="#E63946" className="flex-1 text-white border rounded">
+      <ColorSwatchPart position="top-left" className="text-base font-bold">Red</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-1 pl-1">
+        <ColorContrast against="#ffffff" className="font-mono bg-black/20 p-1 rounded backdrop-blur-md">
+            <span>WCAG:</span>
+            <ColorContrastRatio />
+            <ColorContrastBadge />
+        </ColorContrast>
+      </ColorSwatchPart>
+    </ColorSwatch>
+    <ColorSwatch value="#A8DADC" className="flex-1 text-black border rounded">
+      <ColorSwatchPart position="top-left" className="text-base font-bold">Teal</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-1 pl-1">
+        <ColorContrast against="#ffffff" className="font-mono bg-white p-1 rounded shadow-sm">
+            <span>WCAG:</span>
+            <ColorContrastRatio />
+            <ColorContrastBadge className="ml-1" />
+        </ColorContrast>
+      </ColorSwatchPart>
+    </ColorSwatch>
+  </div>`}>
+  <div className="flex w-full max-w-sm gap-2 h-40 font-sans tracking-tight">
+    <ColorSwatch value="#E63946" className="flex-1 text-white border rounded">
+      <ColorSwatchPart position="top-left" className="text-base font-bold">Red</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-1 pl-1">
+        <ColorContrast against="#ffffff" className="font-mono bg-black/20 p-1 rounded backdrop-blur-md">
+            <span>WCAG:</span>
+            <ColorContrastRatio />
+            <ColorContrastBadge />
+        </ColorContrast>
+      </ColorSwatchPart>
+    </ColorSwatch>
+    <ColorSwatch value="#A8DADC" className="flex-1 text-black border rounded">
+      <ColorSwatchPart position="top-left" className="text-base font-bold">Teal</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-1 pl-1">
+        <ColorContrast against="#ffffff" className="font-mono bg-white p-1 rounded shadow-sm">
+            <span>WCAG:</span>
+            <ColorContrastRatio />
+            <ColorContrastBadge className="ml-1" />
+        </ColorContrast>
+      </ColorSwatchPart>
+    </ColorSwatch>
+  </div>
+</Preview>
 
 ### Corners and Center Placement
 
