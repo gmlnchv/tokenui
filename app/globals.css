@@ -160,8 +160,23 @@
     color: var(--color-cararra-700) !important;
   }
 
+  /* Documentation typography */
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  [data-page-content] h1,
+  [data-page-content] h2,
+  [data-page-content] h3,
+  [data-page-content] h4,
+  .fd-nd-title {
+    font-family: var(--font-instrument-serif) !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.02em !important;
+  }
+
   /* Internal container alignment */
-  .home-layout header > div > div,
+  .home-layout header > div,
   .home-layout footer > div {
     max-width: 80rem !important; /* max-w-7xl (1280px) */
     margin-left: auto !important;
@@ -172,7 +187,7 @@
   }
 
   @media (min-width: 1024px) {
-    .home-layout header > div > div,
+    .home-layout header > div,
     .home-layout footer > div {
       padding-left: 2rem !important; /* lg:px-8 */
       padding-right: 2rem !important; /* lg:px-8 */
