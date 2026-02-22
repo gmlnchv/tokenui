@@ -8,7 +8,12 @@ import {
   ColorPaletteLabel,
   ColorSwatch,
   ColorSwatchLabel,
+  ColorSwatchPart,
 } from "@/registry/components/color-palette";
+import {
+  ColorContrast,
+  ColorContrastBadge,
+} from "@/registry/components/color-contrast";
 
 ## Overview
 
@@ -22,88 +27,91 @@ These layouts are intentionally flexible and easy to reshape. You get a pre-comp
 
 ## Usage
 
+The default `ColorPalette` component is the fastest way to render a collection of colors with automatic labels and hover states.
+
 <Preview code={`import { ColorPalette } from '@/registry/components/color-palette'
 
+<div className="space-y-4">
+  <ColorPalette 
+    label="Indigo"
+    colors={['#e0e7ff', '#c7d2fe', '#a5b4fc', '#818cf8', '#6366f1', '#4f46e5', '#4338ca', '#3730a3', '#312e81']} 
+  />
+</div>`}>
   <div className="space-y-4">
     <ColorPalette 
-      colors={['#f0f9ff', '#e0f2fe', '#bae6fd', '#7dd3fc', '#38bdf8', '#0ea5e9', '#0284c7', '#0369a1', '#075985']}
-      label="Blue"
-    />
-    <ColorPalette 
-      colors={['#fef2f2', '#fee2e2', '#fecaca', '#fca5a5', '#f87171', '#ef4444', '#dc2626', '#b91c1c', '#991b1b']}
-      label="Red"
-    />
-    <ColorPalette 
-      colors={['#fefce8', '#fef9c3', '#fef08a', '#fde047', '#facc15', '#eab308', '#ca8a04', '#a16207', '#854d0e']}
-      label="Yellow"
-    />
-    <ColorPalette 
-      colors={['#f0fdf4', '#dcfce7', '#bbf7d0', '#86efac', '#4ade80', '#22c55e', '#16a34a', '#15803d', '#166534']}
-      label="Green"
-    />
-  </div>`}>
-  <div className="space-y-4">
-    <ColorPalette 
-      colors={['#f0f9ff', '#e0f2fe', '#bae6fd', '#7dd3fc', '#38bdf8', '#0ea5e9', '#0284c7', '#0369a1', '#075985']}
-      label="Blue"
-    />
-    <ColorPalette 
-      colors={['#fef2f2', '#fee2e2', '#fecaca', '#fca5a5', '#f87171', '#ef4444', '#dc2626', '#b91c1c', '#991b1b']}
-      label="Red"
-    />
-    <ColorPalette 
-      colors={['#fefce8', '#fef9c3', '#fef08a', '#fde047', '#facc15', '#eab308', '#ca8a04', '#a16207', '#854d0e']}
-      label="Yellow"
-    />
-    <ColorPalette 
-      colors={['#f0fdf4', '#dcfce7', '#bbf7d0', '#86efac', '#4ade80', '#22c55e', '#16a34a', '#15803d', '#166534']}
-      label="Green"
+      label="Indigo"
+      colors={['#e0e7ff', '#c7d2fe', '#a5b4fc', '#818cf8', '#6366f1', '#4f46e5', '#4338ca', '#3730a3', '#312e81']} 
     />
   </div>
 </Preview>
 
-### Composition
+### Customize swatches
 
-The `ColorPalette` component is a composed pattern that automatically stacks `ColorSwatch` primitives within it. If you need complete control over layout, you can use the low-level `ColorSwatch` base primitive on its own. Read more about it on the [Color Swatch](/docs/components/color-swatch) docs page.
+<Preview code={`import { 
+  ColorSwatch, 
+  ColorSwatchPart, 
+  ColorPaletteLabel 
+} from '@/registry/components/color-palette'
+import { ColorContrast, ColorContrastBadge } from '@/registry/components/color-contrast'
+
+<div className="space-y-2">
+  <ColorPaletteLabel>Brand Ramp (with Scores)</ColorPaletteLabel>
+  <div className="flex h-20 overflow-hidden rounded-md border text-white">
+    {['#f0f9ff', '#0ea5e9', '#0369a1', '#075985'].map((h) => (
+      <ColorSwatch key={h} value={h} className="group flex-1">
+        <ColorSwatchPart position="top-left">
+          <ColorContrast against="#ffffff">
+            <ColorContrastBadge className="opacity-70 group-hover:opacity-100" />
+          </ColorContrast>
+        </ColorSwatchPart>
+      </ColorSwatch>
+    ))}
+  </div>
+</div>`}>
+  <div className="space-y-2">
+    <ColorPaletteLabel>Brand Ramp (with Scores)</ColorPaletteLabel>
+    <div className="flex h-20 overflow-hidden rounded-md border text-white">
+      {['#f0f9ff', '#0ea5e9', '#0369a1', '#075985'].map((h) => (
+        <ColorSwatch key={h} value={h} className="group flex-1">
+          <ColorSwatchPart position="top-left">
+            <ColorContrast against="#ffffff">
+              <ColorContrastBadge className="opacity-70 group-hover:opacity-100" />
+            </ColorContrast>
+          </ColorSwatchPart>
+        </ColorSwatch>
+      ))}
+    </div>
+  </div>
+</Preview>
 
 ### Vertical layout
 
-Toggle the layout with `orientation="vertical"`:
+Toggle the layout with `orientation="vertical"` for tight sidebars or detailed token lists:
 
 <Preview code={`import { ColorPalette } from '@/registry/components/color-palette'
 
+<div className="grid grid-cols-3 gap-4">
+  <ColorPalette 
+    colors={['#eff6ff', '#bfdbfe', '#60a5fa', '#1d4ed8']}
+    orientation="vertical"
+    label="Blue"
+  />
+  <ColorPalette 
+    colors={['#fdf4ff', '#f5d0fe', '#e879f9', '#a21caf']}
+    orientation="vertical"
+    label="Fuchsia"
+  />
+</div>`}>
   <div className="grid grid-cols-3 gap-4">
     <ColorPalette 
-      colors={['#eff6ff', '#dbeafe', '#bfdbfe', '#93c5fd', '#60a5fa']}
+      colors={['#eff6ff', '#bfdbfe', '#60a5fa', '#1d4ed8']}
       orientation="vertical"
       label="Blue"
     />
     <ColorPalette 
-      colors={['#fdf4ff', '#fae8ff', '#f5d0fe', '#f0abfc', '#e879f9']}
+      colors={['#fdf4ff', '#f5d0fe', '#e879f9', '#a21caf']}
       orientation="vertical"
       label="Fuchsia"
-    />
-    <ColorPalette 
-      colors={['#fff7ed', '#ffedd5', '#fed7aa', '#fdba74', '#fb923c']}
-      orientation="vertical"
-      label="Orange"
-    />
-  </div>`}>
-  <div className="grid grid-cols-3 gap-4">
-    <ColorPalette 
-      colors={['#eff6ff', '#dbeafe', '#bfdbfe', '#93c5fd', '#60a5fa']}
-      orientation="vertical"
-      label="Blue"
-    />
-    <ColorPalette 
-      colors={['#fdf4ff', '#fae8ff', '#f5d0fe', '#f0abfc', '#e879f9']}
-      orientation="vertical"
-      label="Fuchsia"
-    />
-    <ColorPalette 
-      colors={['#fff7ed', '#ffedd5', '#fed7aa', '#fdba74', '#fb923c']}
-      orientation="vertical"
-      label="Orange"
     />
   </div>
 </Preview>

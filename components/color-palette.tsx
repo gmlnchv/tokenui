@@ -11,8 +11,10 @@ import { cn } from "@/lib/utils";
 import {
   ColorSwatch,
   ColorSwatchLabel,
+  ColorSwatchPart,
   type ColorSwatchProps,
   type ColorSwatchLabelProps,
+  type ColorSwatchPartProps,
 } from "./color-swatch";
 
 type ColorPaletteLabelProps = HTMLAttributes<HTMLDivElement>;
@@ -99,10 +101,12 @@ export {
   ColorPalette,
   ColorSwatch,
   ColorSwatchLabel,
+  ColorSwatchPart,
   ColorPaletteLabel,
   type ColorPaletteProps,
   type ColorSwatchProps,
   type ColorSwatchLabelProps,
+  type ColorSwatchPartProps,
   type ColorPaletteLabelProps,
   type ColorStop,
 };
