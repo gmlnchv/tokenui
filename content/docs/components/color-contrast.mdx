@@ -1,0 +1,209 @@
+---
+title: "Color Contrast"
+description: "A component for displaying accessibility contrast test results, either standalone or integrated with ColorSwatch."
+---
+
+import {
+  ColorContrast,
+  ColorContrastRatio,
+  ColorContrastBadge,
+} from "@/registry/components/color-contrast";
+import {
+  ColorSwatch,
+  ColorSwatchPart,
+} from "@/registry/components/color-swatch";
+
+## Overview
+
+**ColorContrast** is a primitive building block used to display testing and compliance metrics, automatically computing relative luminance and contrast via a WCAG 2.0 formula, or allowing calculated overrides.
+
+Because it hooks into \`ColorSwatchContext\`, it is able to calculate contrast against any active \`ColorSwatch\` ancestor.
+
+## Installation
+
+<Installer packageName="color-contrast" />
+
+## Usage
+
+You can use the native WCAG checking capabilities inline inside a swatch:
+
+<Preview code={`import { ColorContrast, ColorContrastRatio, ColorContrastBadge } from '@/registry/components/color-contrast'
+import { ColorSwatch, ColorSwatchPart } from '@/registry/components/color-swatch'
+
+  <div className="flex w-full max-w-sm gap-2 h-40 font-sans tracking-tight">
+    {/* Pass Example */}
+    <ColorSwatch value="#000000" className="flex-1 text-white border rounded">
+      <ColorSwatchPart position="top-left" className="text-base font-bold">Dark</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-1 pl-1">
+        <ColorContrast against="#ffffff" className="font-mono">
+            <span>WCAG:</span>
+            <ColorContrastRatio />
+            <ColorContrastBadge />
+        </ColorContrast>
+      </ColorSwatchPart>
+    </ColorSwatch>
+    {/* Fail Example */}
+    <ColorSwatch value="#E2E8F0" className="flex-1 text-black border rounded">
+      <ColorSwatchPart position="top-left" className="text-base font-bold">Light</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-1 pl-1">
+        {/* Testing white text against a light background fails properly */}
+        <ColorContrast against="#ffffff" className="font-mono bg-white p-1 rounded">
+            <span>WCAG:</span>
+            <ColorContrastRatio />
+            <ColorContrastBadge />
+        </ColorContrast>
+      </ColorSwatchPart>
+    </ColorSwatch>
+  </div>`}>
+  <div className="flex w-full max-w-sm gap-2 h-40 font-sans tracking-tight mt-6">
+    {/* Pass Example */}
+    <ColorSwatch value="#000000" className="flex-1 text-white border rounded">
+      <ColorSwatchPart position="top-left" className="text-base font-bold">Dark</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-1 pl-1">
+        <ColorContrast against="#ffffff" className="font-mono">
+            <span>WCAG:</span>
+            <ColorContrastRatio />
+            <ColorContrastBadge />
+        </ColorContrast>
+      </ColorSwatchPart>
+    </ColorSwatch>
+    {/* Fail Example */}
+    <ColorSwatch value="#E2E8F0" className="flex-1 text-black border rounded">
+      <ColorSwatchPart position="top-left" className="text-base font-bold">Light</ColorSwatchPart>
+      <ColorSwatchPart position="bottom-left" className="pb-1 pl-1">
+        {/* Testing white text against a light background fails properly */}
+        <ColorContrast against="#ffffff" className="font-mono bg-white p-1 rounded">
+            <span>WCAG:</span>
+            <ColorContrastRatio />
+            <ColorContrastBadge />
+        </ColorContrast>
+      </ColorSwatchPart>
+    </ColorSwatch>
+  </div>
+</Preview>
+
+### Independent Usage
+
+If you are using \`ColorContrast\` outside of a swatch, simply supply both the \`base\` and \`against\` color props to invoke the automatic calculation logic independently:
+
+<Preview code={`import { ColorContrast, ColorContrastRatio, ColorContrastBadge } from '@/registry/components/color-contrast'
+
+   <div className="flex flex-col gap-2 rounded-lg border p-4 max-w-sm">
+      <ColorContrast base="#f96302" against="#ffffff">
+        <span className="font-semibold text-neutral-500 min-w-20">#F96302</span>
+        <ColorContrastRatio />
+        <ColorContrastBadge variant="icon" />
+      </ColorContrast>
+      <ColorContrast base="#1db954" against="#ffffff">
+        <span className="font-semibold text-neutral-500 min-w-20">#1DB954</span>
+        <ColorContrastRatio />
+        <ColorContrastBadge variant="icon" />
+      </ColorContrast>
+      <ColorContrast base="#ff0000" against="#ffffff">
+        <span className="font-semibold text-neutral-500 min-w-20">#FF0000</span>
+        <ColorContrastRatio />
+        <ColorContrastBadge variant="icon" />
+      </ColorContrast>
+   </div>`}>
+   <div className="flex flex-col gap-2 rounded-lg border p-4 max-w-sm bg-white mt-6 text-black">
+      <ColorContrast base="#f96302" against="#ffffff">
+        <span className="font-semibold text-neutral-500 min-w-20">#F96302</span>
+        <ColorContrastRatio />
+        <ColorContrastBadge variant="icon" />
+      </ColorContrast>
+      <ColorContrast base="#1db954" against="#ffffff">
+        <span className="font-semibold text-neutral-500 min-w-20">#1DB954</span>
+        <ColorContrastRatio />
+        <ColorContrastBadge variant="icon" />
+      </ColorContrast>
+      <ColorContrast base="#ff0000" against="#ffffff">
+        <span className="font-semibold text-neutral-500 min-w-20">#FF0000</span>
+        <ColorContrastRatio />
+        <ColorContrastBadge variant="icon" />
+      </ColorContrast>
+   </div>
+</Preview>
+
+### Overriding Logic (e.g., APCA or external APIs)
+
+If you are using different calculation logic or simply want to display external APCA compliance metrics, simply pass fixed values. It immediately bypasses internal WCAG calculations:
+
+<Preview code={`import { ColorContrast, ColorContrastRatio, ColorContrastBadge } from '@/registry/components/color-contrast'
+
+   <div className="flex flex-col gap-2 rounded-lg border p-4 max-w-sm">
+      <ColorContrast against="#ffffff" ratio="13%" passes="fail">
+        <span className="font-semibold text-neutral-500 w-16">APCA</span>
+        <ColorContrastRatio />
+        <ColorContrastBadge />
+      </ColorContrast>
+      <ColorContrast against="#ffffff" ratio="54%" passes="AAA">
+        <span className="font-semibold text-neutral-500 w-16">APCA</span>
+        <ColorContrastRatio />
+        <ColorContrastBadge className="ml-2" />
+      </ColorContrast>
+   </div>`}>
+   <div className="flex flex-col gap-2 rounded-lg border p-4 max-w-sm bg-white mt-6 text-black">
+      <ColorContrast against="#ffffff" ratio="13%" passes="fail">
+        <span className="font-semibold text-neutral-500 w-16">APCA</span>
+        <ColorContrastRatio />
+        <ColorContrastBadge />
+      </ColorContrast>
+      <ColorContrast against="#ffffff" ratio="54%" passes="AAA">
+        <span className="font-semibold text-neutral-500 w-16">APCA</span>
+        <ColorContrastRatio />
+        <ColorContrastBadge className="ml-2" />
+      </ColorContrast>
+   </div>
+</Preview>
+
+## API Reference
+
+### ColorContrast
+
+Root container driving calculations and resolving swatch parent data via Context.
+
+<AutoTypeTable
+  name="ColorContrastProps"
+  type={`
+type ContrastLevel = "AA" | "AAA" | "fail" | boolean;
+
+export type ColorContrastProps = {
+  /** The color to check contrast against (often text color) */
+  against: string;
+  /** The underlying base color, automatically inferred if wrapped in ColorSwatch */
+  base?: string;
+  /** Custom ratio override, useful for specifying APCA variants where calculation isn't standard WCAG */
+  ratio?: number | string;
+  /** Manual override for pass/fail or AA/AAA level. Otherwise calculated automatically using WCAG normal text math */
+  passes?: ContrastLevel;
+}
+`}
+/>
+
+### ColorContrastRatio
+
+Automatically grabs the calculated context \`ratio\`.
+
+<AutoTypeTable
+  name="ColorContrastRatioProps"
+  type={`
+export type ColorContrastRatioProps = {
+  /** Additional styling */
+  className?: string;
+}
+`}
+/>
+
+### ColorContrastBadge
+
+Pill or Icon visually dictating success status.
+
+<AutoTypeTable
+  name="ColorContrastBadgeProps"
+  type={`
+export type ColorContrastBadgeProps = {
+  /** Visual variant of the badge, displaying raw icon or colored pill */
+  variant?: "pill" | "icon";
+}
+`}
+/>

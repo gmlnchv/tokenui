@@ -11,6 +11,15 @@ type ColorSwatchProps = HTMLAttributes<HTMLDivElement> & {
   name?: string;
 };
 
+const ColorSwatchContext = React.createContext<{
+  value: string;
+  name?: string;
+} | null>(null);
+
+function useColorSwatch() {
+  return React.useContext(ColorSwatchContext);
+}
+
 const ColorSwatch = React.forwardRef<HTMLDivElement, ColorSwatchProps>(
   ({ value, name, className, children, ...props }, forwardedRef) => {
     return (
@@ -24,7 +33,9 @@ const ColorSwatch = React.forwardRef<HTMLDivElement, ColorSwatchProps>(
         title={name || value}
         {...props}
       >
-        {children}
+        <ColorSwatchContext.Provider value={{ value, name }}>
+          {children}
+        </ColorSwatchContext.Provider>
       </div>
     );
   },
@@ -101,6 +112,7 @@ ColorSwatchPart.displayName = "ColorSwatchPart";
 
 export {
   ColorSwatch,
+  useColorSwatch,
   ColorSwatchLabel,
   ColorSwatchPart,
   type ColorSwatchProps,

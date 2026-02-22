@@ -207,6 +207,20 @@
       ]
     },
     {
+      "name": "color-contrast",
+      "type": "registry:component",
+      "title": "ColorContrast",
+      "description": "A component for displaying accessibility contrast algorithms visually inline, natively hooking into ColorSwatch.",
+      "registryDependencies": ["@tokenui/color-swatch"],
+      "dependencies": ["lucide-react"],
+      "files": [
+        {
+          "path": "registry/components/color-contrast.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "color-palette",
       "type": "registry:component",
       "title": "ColorPalette",
