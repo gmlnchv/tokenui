@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  ColorPalette,
-  ColorSwatch,
-  ColorSwatchLabel,
-} from "@/registry/components/color-palette";
-import { ColorToken } from "@/registry/components/color-token";
-import { NumberToken } from "@/registry/components/number-token";
+import { ColorPalette, ColorSwatch } from "@/registry/components/color-palette";
 import { SpacingToken } from "@/registry/components/spacing-token";
 import { TypographyToken } from "@/registry/components/typography-token";
 import { CTAButton } from "@/components/cta-button";
@@ -219,88 +213,117 @@ export default function Home() {
       </section>
 
       {/* Browser Mockup Section */}
-      <section className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 mt-12 md:mt-20">
-        {/* Container holding the browser */}
-        <div className="relative rounded-[2.5rem] bg-cararra-50/60 backdrop-blur-xl border border-cararra-200/80 p-3 md:p-5 lg:p-6 overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex items-center justify-center">
-          {/* Browser Mockup centered and narrower */}
-          <div className="relative z-10 w-full max-w-4xl">
-            <div className="overflow-hidden rounded-xl border border-cararra-300/50 bg-white shadow-2xl">
-              {/* Browser Header */}
-              <div className="flex items-center justify-between border-b border-cararra-200 bg-cararra-100 px-4 py-2.5">
-                <div className="flex items-center gap-2 w-[52px]">
-                  <div className="flex gap-1.5">
-                    <div className="h-3 w-3 rounded-full bg-cararra-300" />
-                    <div className="h-3 w-3 rounded-full bg-cararra-300" />
-                    <div className="h-3 w-3 rounded-full bg-cararra-300" />
+      <section className="relative z-20 mx-auto max-w-6xl px-6 lg:px-8 -mt-8 md:-mt-16">
+        <div className="relative group">
+          {/* Subtle Ambient Glow */}
+          <div className="absolute -inset-4 bg-gradient-to-tr from-cararra-200/20 via-cararra-100/10 to-transparent blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+          <div className="relative overflow-hidden rounded-2xl border border-cararra-200/60 bg-white shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12),0_16px_32px_-8px_rgba(0,0,0,0.08)]">
+            {/* Browser Header */}
+            <div className="flex items-center justify-between border-b border-cararra-100 bg-cararra-50/50 px-5 py-3">
+              <div className="flex items-center gap-2 w-20">
+                <div className="flex gap-2">
+                  <div className="h-2.5 w-2.5 rounded-full bg-cararra-200" />
+                  <div className="h-2.5 w-2.5 rounded-full bg-cararra-200" />
+                  <div className="h-2.5 w-2.5 rounded-full bg-cararra-200" />
+                </div>
+              </div>
+
+              <div className="flex items-center flex-1 justify-center max-w-md">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeShowcase}
+                    initial={{ opacity: 0, y: 4, filter: "blur(4px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{
+                      opacity: 0,
+                      y: -4,
+                      filter: "blur(4px)",
+                      position: "absolute",
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full flex justify-center"
+                  >
+                    <div className="w-full rounded-lg bg-white/80 border border-cararra-200/50 py-1.5 px-4 text-[11px] font-mono text-cararra-400 shadow-sm flex items-center justify-center gap-2 backdrop-blur-sm">
+                      <svg
+                        className="w-3 h-3 text-cararra-300"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                        />
+                      </svg>
+                      {SHOWCASE_ITEMS[activeShowcase].url}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              <div className="w-20" />
+            </div>
+
+            {/* Browser Content */}
+            <div className="h-[540px] p-10 bg-white flex flex-col relative overflow-hidden">
+              <div className="mx-auto max-w-4xl w-full flex-1 flex flex-col h-full">
+                <div className="mb-10 shrink-0">
+                  <div className="mb-4 flex items-center gap-2">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-cararra-400">
+                      Documentation / Acme DS
+                    </span>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="h-10 w-72 rounded-xl bg-gradient-to-r from-cararra-100 to-cararra-50 animate-pulse" />
+                    <div className="space-y-2">
+                      <div className="h-3 w-full max-w-lg rounded-full bg-cararra-50 animate-pulse" />
+                      <div className="h-3 w-full max-w-md rounded-full bg-cararra-50/50 animate-pulse" />
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center flex-1 justify-center relative h-6">
+
+                {/* Navigation Items (Skeleton-ish but defined) */}
+                <div className="mb-12 flex gap-8 border-b border-cararra-100 shrink-0">
+                  {["Overview", "Usage", "Guidelines", "API"].map((tab, i) => (
+                    <div
+                      key={tab}
+                      className={`pb-4 relative ${i === 0 ? "text-cararra-950" : "text-cararra-300"}`}
+                    >
+                      <div
+                        className={`h-3 w-16 rounded bg-current ${i === 0 ? "opacity-20" : "opacity-10"} animate-pulse`}
+                      />
+                      {i === 0 && (
+                        <motion.div
+                          layoutId="activeTab"
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-cararra-950"
+                        />
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Content Area */}
+                <div className="flex-1 relative w-full h-full">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeShowcase}
-                      initial={{ opacity: 0, filter: "blur(4px)" }}
-                      animate={{ opacity: 1, filter: "blur(0px)" }}
+                      initial={{ opacity: 0, x: 20, filter: "blur(10px)" }}
+                      animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                       exit={{
                         opacity: 0,
-                        filter: "blur(4px)",
+                        x: -20,
+                        filter: "blur(10px)",
                         position: "absolute",
                       }}
-                      transition={{ duration: 0.3 }}
-                      className="flex items-center"
+                      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute inset-0"
                     >
-                      <div className="rounded-md bg-cararra-50 px-8 py-1 text-xs text-cararra-400 font-mono shadow-inner border border-cararra-200/50 bg-white/50 backdrop-blur-sm">
-                        {SHOWCASE_ITEMS[activeShowcase].url}
-                      </div>
+                      {SHOWCASE_ITEMS[activeShowcase].content}
                     </motion.div>
                   </AnimatePresence>
-                </div>
-                <div className="w-[52px]" />
-              </div>
-
-              {/* Browser Content */}
-              <div className="h-[600px] p-8 bg-white flex flex-col relative overflow-hidden">
-                <div className="mx-auto max-w-4xl w-full flex-1 flex flex-col h-full">
-                  <div className="mb-8 shrink-0">
-                    <div className="mb-2 flex items-center gap-2">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-cararra-700">
-                        Acme Design System
-                      </span>
-                    </div>
-                    <div className="space-y-3 mt-6">
-                      <div className="h-10 w-64 rounded-lg bg-cararra-200 animate-pulse" />
-                      <div className="h-5 w-full max-w-md rounded-md bg-cararra-100 animate-pulse" />
-                      <div className="h-5 w-full max-w-sm rounded-md bg-cararra-100 animate-pulse" />
-                    </div>
-                  </div>
-
-                  {/* Navigation Skeleton */}
-                  <div className="mb-10 flex gap-6 border-b border-cararra-200 pb-px shrink-0">
-                    <div className="h-6 w-20 border-b-2 border-cararra-950 pb-2">
-                      <div className="h-4 w-16 rounded bg-cararra-300 animate-pulse" />
-                    </div>
-                    <div className="h-6 w-16 pb-2">
-                      <div className="h-4 w-14 rounded bg-cararra-200 animate-pulse" />
-                    </div>
-                    <div className="h-6 w-20 pb-2">
-                      <div className="h-4 w-16 rounded bg-cararra-200 animate-pulse" />
-                    </div>
-                  </div>
-
-                  {/* Content Area - Fluidly Changing */}
-                  <div className="flex-1 relative w-full h-full">
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={activeShowcase}
-                        initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
-                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                        exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-                        transition={{ duration: 0.4, ease: "easeInOut" }}
-                        className="absolute inset-0"
-                      >
-                        {SHOWCASE_ITEMS[activeShowcase].content}
-                      </motion.div>
-                    </AnimatePresence>
-                  </div>
                 </div>
               </div>
             </div>
@@ -309,7 +332,7 @@ export default function Home() {
       </section>
 
       {/* Bottom spacer */}
-      <div className="h-24" />
+      <div className="h-32" />
     </div>
   );
 }
