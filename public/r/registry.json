@@ -195,10 +195,23 @@
       ]
     },
     {
+      "name": "color-swatch",
+      "type": "registry:component",
+      "title": "ColorSwatch",
+      "description": "A primitive component for displaying a single color swatch with an optional hover label.",
+      "files": [
+        {
+          "path": "registry/components/color-swatch.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "color-palette",
       "type": "registry:component",
       "title": "ColorPalette",
       "description": "A component for displaying color collections including ramps, scales, and palettes",
+      "registryDependencies": ["@tokenui/color-swatch"],
       "files": [
         {
           "path": "registry/components/color-palette.tsx",

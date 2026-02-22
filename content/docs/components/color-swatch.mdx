@@ -1,0 +1,129 @@
+---
+title: "Color Swatch"
+description: "A primitive component for displaying a single color swatch with an optional hover label"
+---
+
+import {
+  ColorSwatch,
+  ColorSwatchLabel,
+} from "@/registry/components/color-swatch";
+
+## Overview
+
+**ColorSwatch** is a primitive building block used to visually represent a single color value. It is designed to be highly composable and works seamlessly with \`ColorSwatchLabel\` to display a tooltip on hover.
+
+While it is primarily used inside \`ColorPalette\`, you can use it independently to build custom color grids, asymmetric compositions, or any other visual color representation.
+
+## Installation
+
+<Installer packageName="color-swatch" />
+
+## Usage
+
+<Preview code={`import { ColorSwatch, ColorSwatchLabel } from '@/registry/components/color-swatch'
+
+  <div className="flex h-32 w-full max-w-sm gap-2">
+    <ColorSwatch value="#0ea5e9" name="Sky 500">
+      <ColorSwatchLabel>Sky 500</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#3b82f6" name="Blue 500">
+      <ColorSwatchLabel>Blue 500</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#6366f1" name="Indigo 500">
+      <ColorSwatchLabel>Indigo 500</ColorSwatchLabel>
+    </ColorSwatch>
+  </div>`}>
+  <div className="flex h-32 w-full max-w-sm gap-2">
+    <ColorSwatch value="#0ea5e9" name="Sky 500">
+      <ColorSwatchLabel>Sky 500</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#3b82f6" name="Blue 500">
+      <ColorSwatchLabel>Blue 500</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#6366f1" name="Indigo 500">
+      <ColorSwatchLabel>Indigo 500</ColorSwatchLabel>
+    </ColorSwatch>
+  </div>
+</Preview>
+
+### Composition
+
+Compose \`ColorSwatch\` inside a CSS Grid for advanced layouts.
+
+<Preview code={`import { ColorSwatch, ColorSwatchLabel } from '@/registry/components/color-swatch'
+
+  <div className="grid grid-cols-3 auto-rows-fr aspect-square max-w-md overflow-hidden rounded-md border">
+    <ColorSwatch value="#EFEEE9" name="White Mink" className="col-span-2 row-span-1">
+      <ColorSwatchLabel>White Mink</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#151515" name="Matt Black" className="col-span-1 row-span-1">
+      <ColorSwatchLabel>Matt Black</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#795953" name="Sequoia Dusk" className="col-span-1 row-span-2">
+      <ColorSwatchLabel>Sequoia Dusk</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#324038" name="Roycroft Bottle Green" className="col-span-2 row-span-1">
+      <ColorSwatchLabel>Roycroft Bottle Green</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#E8B793" name="Gentle Doe" className="col-span-1 row-span-1">
+      <ColorSwatchLabel>Gentle Doe</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#F0DCCB" name="Champagne Pink" className="col-span-1 row-span-1">
+      <ColorSwatchLabel>Champagne Pink</ColorSwatchLabel>
+    </ColorSwatch>
+  </div>`}>
+  <div className="grid grid-cols-3 auto-rows-fr aspect-square max-w-md overflow-hidden rounded-md border">
+    <ColorSwatch value="#EFEEE9" name="White Mink" className="col-span-2 row-span-1">
+      <ColorSwatchLabel>White Mink</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#151515" name="Matt Black" className="col-span-1 row-span-1">
+      <ColorSwatchLabel>Matt Black</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#795953" name="Sequoia Dusk" className="col-span-1 row-span-2">
+      <ColorSwatchLabel>Sequoia Dusk</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#324038" name="Roycroft Bottle Green" className="col-span-2 row-span-1">
+      <ColorSwatchLabel>Roycroft Bottle Green</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#E8B793" name="Gentle Doe" className="col-span-1 row-span-1">
+      <ColorSwatchLabel>Gentle Doe</ColorSwatchLabel>
+    </ColorSwatch>
+    <ColorSwatch value="#F0DCCB" name="Champagne Pink" className="col-span-1 row-span-1">
+      <ColorSwatchLabel>Champagne Pink</ColorSwatchLabel>
+    </ColorSwatch>
+  </div>
+</Preview>
+
+<small className="text-muted-foreground">
+  [#MindfulPalettes](https://x.com/AlexCristache) no 056 by
+  [@AlexCristache](https://x.com/AlexCristache)
+</small>
+
+## API Reference
+
+### ColorSwatch
+
+A single color swatch element. By default, it flexes to fill its container and expands slightly on hover.
+
+<AutoTypeTable
+  name="ColorSwatchProps"
+  type={`
+export type ColorSwatchProps = {
+  /** Color value (hex, rgb, hsl, etc.) */
+  value: string
+  /** Optional name/label for the color */
+  name?: string
+}
+`}
+/>
+
+### ColorSwatchLabel
+
+Label displayed hovering inside a \`ColorSwatch\` element on pointer hover.
+
+<AutoTypeTable
+  name="ColorSwatchLabelProps"
+  type={`
+export type ColorSwatchLabelProps = HTMLAttributes<HTMLDivElement>
+`}
+/>
