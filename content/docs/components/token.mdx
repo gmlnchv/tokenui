@@ -11,9 +11,9 @@ import {
   TokenRoot,
   TokenValue,
   TokenIndicator,
-} from '@/registry/components/token'
-import { TooltipTrigger, TooltipContent } from '@/registry/ui/tooltip'
-import { AlertTriangle, Blend } from 'lucide-react'
+} from "@/registry/components/token";
+import { TooltipTrigger, TooltipContent } from "@/registry/ui/tooltip";
+import { AlertTriangle, Blend } from "lucide-react";
 
 ## Overview
 
@@ -198,31 +198,6 @@ export type TokenProviderProps = {
 ### TokenRoot
 
 Provides the tooltip functionality. Composes `Tooltip` from `shadcn/ui`.
-
-<DocsLink href="https://ui.shadcn.com/docs/components/tooltip">Docs</DocsLink>
-
-### TokenName
-
-Button trigger that displays the token name and copies it to the clipboard on click. Reads the name from `TokenProvider` context. Composes `TooltipTrigger` from `shadcn/ui`.
-
-<DocsLink href="https://ui.shadcn.com/docs/components/tooltip">Docs</DocsLink>
-
-<AutoTypeTable
-  name="TokenNameProps"
-  type={`
-export type TokenNameProps = {
-  /**
-   * Whether clicking the token name should copy it to the clipboard.
-   * @default true
-   */
-  copyable?: boolean
-}
-`}
-/>
-
-### TokenValue
-
-Tooltip content wrapper with default spacing. Can display the token value or accept custom children for richer content. Reads the value from `TokenProvider` context. Composes `TooltipContent` from `shadcn/ui`.
 
 <DocsLink href="https://ui.shadcn.com/docs/components/tooltip">Docs</DocsLink>
 
