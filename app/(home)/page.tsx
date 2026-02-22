@@ -15,8 +15,170 @@ import {
   BuiltForLogos,
 } from "@/components/brand-badges";
 import { SingleTokenHero } from "@/components/single-token-hero";
+import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
+const SHOWCASE_ITEMS = [
+  {
+    id: "color",
+    url: "docs.acme.design/tokens/color",
+    content: (
+      <div className="space-y-8 h-full flex flex-col justify-center">
+        <div className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-3">
+            <ColorSwatch
+              value="#3b82f6"
+              className="h-24 w-full rounded-xl border border-cararra-200 shadow-sm"
+            >
+              <div className="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between bg-white/90 backdrop-blur-sm border-t border-cararra-100 rounded-b-xl">
+                <div className="w-16 h-4 bg-cararra-200 rounded animate-pulse" />
+                <div className="w-12 h-4 bg-cararra-200 rounded animate-pulse" />
+              </div>
+            </ColorSwatch>
+            <ColorSwatch
+              value="#1e293b"
+              className="h-24 w-full rounded-xl border border-cararra-200 shadow-sm"
+            >
+              <div className="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between bg-white/90 backdrop-blur-sm border-t border-cararra-100 rounded-b-xl">
+                <div className="w-16 h-4 bg-cararra-200 rounded animate-pulse" />
+                <div className="w-12 h-4 bg-cararra-200 rounded animate-pulse" />
+              </div>
+            </ColorSwatch>
+            <ColorSwatch
+              value="#eff6ff"
+              className="h-24 w-full rounded-xl border border-cararra-200 shadow-sm"
+            >
+              <div className="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between bg-white/90 backdrop-blur-sm border-t border-cararra-100 rounded-b-xl">
+                <div className="w-16 h-4 bg-cararra-200 rounded animate-pulse" />
+                <div className="w-12 h-4 bg-cararra-200 rounded animate-pulse" />
+              </div>
+            </ColorSwatch>
+          </div>
+
+          <div className="w-full h-12 rounded-lg bg-cararra-50 border border-cararra-200 flex items-center px-4 gap-4 mt-8">
+            <div className="w-24 h-4 bg-cararra-200 rounded animate-pulse" />
+            <div className="w-full h-px bg-cararra-200" />
+          </div>
+
+          <ColorPalette
+            colors={["#dbeafe", "#93c5fd", "#60a5fa", "#3b82f6", "#2563eb"]}
+          />
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: "spacing",
+    url: "docs.acme.design/tokens/spacing",
+    content: (
+      <div className="space-y-6 h-full flex flex-col justify-center">
+        <div className="rounded-xl border border-cararra-200 shadow-sm overflow-hidden bg-white">
+          <div className="flex px-6 py-4 border-b border-cararra-100 bg-cararra-50/50">
+            <div className="w-32 h-4 bg-cararra-200 rounded animate-pulse" />
+            <div className="w-24 h-4 bg-cararra-200 rounded animate-pulse ml-auto" />
+          </div>
+          <div className="p-6 space-y-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4 w-1/3">
+                <div className="w-6 h-6 bg-cararra-200 rounded-full animate-pulse" />
+                <div className="w-20 h-4 bg-cararra-200 rounded animate-pulse" />
+              </div>
+              <div className="w-2/3 flex justify-end">
+                <SpacingToken value="8px" name="spaceSmall" />
+              </div>
+            </div>
+            <div className="w-full h-px bg-cararra-100" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4 w-1/3">
+                <div className="w-6 h-6 bg-cararra-200 rounded-full animate-pulse" />
+                <div className="w-24 h-4 bg-cararra-200 rounded animate-pulse" />
+              </div>
+              <div className="w-2/3 flex justify-end">
+                <SpacingToken value="16px" name="spaceMedium" />
+              </div>
+            </div>
+            <div className="w-full h-px bg-cararra-100" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4 w-1/3">
+                <div className="w-6 h-6 bg-cararra-200 rounded-full animate-pulse" />
+                <div className="w-24 h-4 bg-cararra-200 rounded animate-pulse" />
+              </div>
+              <div className="w-2/3 flex justify-end">
+                <SpacingToken value="24px" name="spaceLarge" />
+              </div>
+            </div>
+            <div className="w-full h-px bg-cararra-100" />
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4 w-1/3">
+                <div className="w-6 h-6 bg-cararra-200 rounded-full animate-pulse" />
+                <div className="w-28 h-4 bg-cararra-200 rounded animate-pulse" />
+              </div>
+              <div className="w-2/3 flex justify-end">
+                <SpacingToken value="32px" name="spaceXLarge" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    id: "typography",
+    url: "docs.acme.design/tokens/typography",
+    content: (
+      <div className="space-y-6 h-full flex flex-col justify-center">
+        <div className="rounded-xl border border-cararra-200 shadow-sm overflow-hidden bg-white">
+          <div className="flex px-6 py-4 border-b border-cararra-100 bg-cararra-50/50">
+            <div className="w-40 h-4 bg-cararra-200 rounded animate-pulse" />
+            <div className="w-32 h-4 bg-cararra-200 rounded animate-pulse ml-auto" />
+          </div>
+          <div className="p-6 space-y-8">
+            <div className="flex items-center justify-between">
+              <div className="space-y-2 w-1/3">
+                <div className="w-24 h-4 bg-cararra-200 rounded animate-pulse" />
+                <div className="w-16 h-3 bg-cararra-100 rounded animate-pulse" />
+              </div>
+              <div className="w-2/3 flex justify-end">
+                <TypographyToken value="16px" name="textBase" />
+              </div>
+            </div>
+            <div className="w-full h-px bg-cararra-100" />
+            <div className="flex items-center justify-between">
+              <div className="space-y-2 w-1/3">
+                <div className="w-28 h-4 bg-cararra-200 rounded animate-pulse" />
+                <div className="w-20 h-3 bg-cararra-100 rounded animate-pulse" />
+              </div>
+              <div className="w-2/3 flex justify-end">
+                <TypographyToken value="24px" name="textXLarge" />
+              </div>
+            </div>
+            <div className="w-full h-px bg-cararra-100" />
+            <div className="flex items-center justify-between">
+              <div className="space-y-2 w-1/3">
+                <div className="w-32 h-4 bg-cararra-200 rounded animate-pulse" />
+                <div className="w-24 h-3 bg-cararra-100 rounded animate-pulse" />
+              </div>
+              <div className="w-2/3 flex justify-end">
+                <TypographyToken value="36px" name="textDisplay" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+];
 
 export default function Home() {
+  const [activeShowcase, setActiveShowcase] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveShowcase((prev) => (prev + 1) % SHOWCASE_ITEMS.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-cararra-50 relative overflow-hidden">
       {/* Hero Section */}
@@ -59,385 +221,85 @@ export default function Home() {
       {/* Browser Mockup Section */}
       <section className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 mt-12 md:mt-20">
         {/* Container holding the browser */}
-        <div className="relative rounded-[2.5rem] bg-cararra-50/60 backdrop-blur-xl border border-cararra-200/80 p-8 md:p-16 lg:p-24 overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex items-center justify-center">
+        <div className="relative rounded-[2.5rem] bg-cararra-50/60 backdrop-blur-xl border border-cararra-200/80 p-3 md:p-5 lg:p-6 overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.04)] flex items-center justify-center">
           {/* Browser Mockup centered and narrower */}
           <div className="relative z-10 w-full max-w-4xl">
             <div className="overflow-hidden rounded-xl border border-cararra-300/50 bg-white shadow-2xl">
               {/* Browser Header */}
               <div className="flex items-center justify-between border-b border-cararra-200 bg-cararra-100 px-4 py-2.5">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 w-[52px]">
                   <div className="flex gap-1.5">
                     <div className="h-3 w-3 rounded-full bg-cararra-300" />
                     <div className="h-3 w-3 rounded-full bg-cararra-300" />
                     <div className="h-3 w-3 rounded-full bg-cararra-300" />
                   </div>
                 </div>
-                <div className="flex items-center">
-                  <div className="rounded-md bg-cararra-50 px-16 py-1 text-xs text-cararra-400">
-                    docs.acme.design/tokens/color
-                  </div>
+                <div className="flex items-center flex-1 justify-center relative h-6">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeShowcase}
+                      initial={{ opacity: 0, filter: "blur(4px)" }}
+                      animate={{ opacity: 1, filter: "blur(0px)" }}
+                      exit={{
+                        opacity: 0,
+                        filter: "blur(4px)",
+                        position: "absolute",
+                      }}
+                      transition={{ duration: 0.3 }}
+                      className="flex items-center"
+                    >
+                      <div className="rounded-md bg-cararra-50 px-8 py-1 text-xs text-cararra-400 font-mono shadow-inner border border-cararra-200/50 bg-white/50 backdrop-blur-sm">
+                        {SHOWCASE_ITEMS[activeShowcase].url}
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
                 <div className="w-[52px]" />
               </div>
 
               {/* Browser Content */}
-              <div className="min-h-[600px] p-8">
-                <div className="mx-auto max-w-4xl">
-                  <div className="mb-8">
+              <div className="h-[600px] p-8 bg-white flex flex-col relative overflow-hidden">
+                <div className="mx-auto max-w-4xl w-full flex-1 flex flex-col h-full">
+                  <div className="mb-8 shrink-0">
                     <div className="mb-2 flex items-center gap-2">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-cararra-500">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-cararra-700">
                         Acme Design System
                       </span>
                     </div>
-                    <h2 className="mb-2 font-serif text-3xl tracking-tight text-cararra-950">
-                      Color Tokens
-                    </h2>
-                    <p className="text-cararra-600">
-                      Color tokens represent the semantic color palette used
-                      throughout the design system.
-                    </p>
+                    <div className="space-y-3 mt-6">
+                      <div className="h-10 w-64 rounded-lg bg-cararra-200 animate-pulse" />
+                      <div className="h-5 w-full max-w-md rounded-md bg-cararra-100 animate-pulse" />
+                      <div className="h-5 w-full max-w-sm rounded-md bg-cararra-100 animate-pulse" />
+                    </div>
                   </div>
 
-                  {/* Navigation */}
-                  <div className="mb-8 flex gap-4 border-b border-cararra-200">
-                    <button
-                      type="button"
-                      className="border-b-2 border-cararra-950 px-1 pb-2 text-sm font-medium text-cararra-950"
-                    >
-                      Overview
-                    </button>
-                    <button
-                      type="button"
-                      className="border-b-2 border-transparent px-1 pb-2 text-sm font-medium text-cararra-400 hover:text-cararra-600"
-                    >
-                      Usage
-                    </button>
-                    <button
-                      type="button"
-                      className="border-b-2 border-transparent px-1 pb-2 text-sm font-medium text-cararra-400 hover:text-cararra-600"
-                    >
-                      Examples
-                    </button>
-                    <button
-                      type="button"
-                      className="border-b-2 border-transparent px-1 pb-2 text-sm font-medium text-cararra-400 hover:text-cararra-600"
-                    >
-                      API
-                    </button>
+                  {/* Navigation Skeleton */}
+                  <div className="mb-10 flex gap-6 border-b border-cararra-200 pb-px shrink-0">
+                    <div className="h-6 w-20 border-b-2 border-cararra-950 pb-2">
+                      <div className="h-4 w-16 rounded bg-cararra-300 animate-pulse" />
+                    </div>
+                    <div className="h-6 w-16 pb-2">
+                      <div className="h-4 w-14 rounded bg-cararra-200 animate-pulse" />
+                    </div>
+                    <div className="h-6 w-20 pb-2">
+                      <div className="h-4 w-16 rounded bg-cararra-200 animate-pulse" />
+                    </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="space-y-6">
-                    <div className="grid gap-4 md:grid-cols-3">
-                      <ColorSwatch
-                        value="#3b82f6"
-                        className="h-20 w-full rounded-lg border border-cararra-200"
+                  {/* Content Area - Fluidly Changing */}
+                  <div className="flex-1 relative w-full h-full">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeShowcase}
+                        initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        className="absolute inset-0"
                       >
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="rounded bg-white px-2 py-1 text-xs font-medium text-cararra-700">
-                            #3b82f6
-                          </span>
-                        </div>
-                      </ColorSwatch>
-                      <ColorSwatch
-                        value="#1e293b"
-                        className="h-20 w-full rounded-lg border border-cararra-200"
-                      >
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="rounded bg-white px-2 py-1 text-xs font-medium text-cararra-700">
-                            #1e293b
-                          </span>
-                        </div>
-                      </ColorSwatch>
-                      <ColorSwatch
-                        value="#eff6ff"
-                        className="h-20 w-full rounded-lg border border-cararra-200"
-                      >
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="rounded bg-white px-2 py-1 text-xs font-medium text-cararra-700">
-                            #eff6ff
-                          </span>
-                        </div>
-                      </ColorSwatch>
-                    </div>
-
-                    <ColorPalette
-                      colors={[
-                        "#dbeafe",
-                        "#93c5fd",
-                        "#60a5fa",
-                        "#3b82f6",
-                        "#2563eb",
-                      ]}
-                    />
-
-                    <ColorPalette
-                      colors={[
-                        { name: "Success", value: "#10b981" },
-                        { name: "Warning", value: "#f59e0b" },
-                        { name: "Error", value: "#ef4444" },
-                        { name: "Info", value: "#3b82f6" },
-                      ]}
-                    />
-
-                    {/* Token Tables */}
-                    <div className="grid gap-6 md:grid-cols-2">
-                      {/* Spacing Table */}
-                      <div className="rounded-lg border border-cararra-200">
-                        <table className="w-full">
-                          <thead>
-                            <tr className="border-b border-cararra-200 bg-cararra-50">
-                              <th className="px-4 py-2 text-left text-xs font-medium text-cararra-600">
-                                Name
-                              </th>
-                              <th className="px-4 py-2 text-left text-xs font-medium text-cararra-600">
-                                Value
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="border-b border-cararra-200">
-                              <td className="px-4 py-2 text-sm">
-                                <SpacingToken value="4px" name="spaceXSmall" />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  4px
-                                </code>
-                              </td>
-                            </tr>
-                            <tr className="border-b border-cararra-200">
-                              <td className="px-4 py-2 text-sm">
-                                <SpacingToken value="8px" name="spaceSmall" />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  8px
-                                </code>
-                              </td>
-                            </tr>
-                            <tr className="border-b border-cararra-200">
-                              <td className="px-4 py-2 text-sm">
-                                <SpacingToken value="16px" name="spaceMedium" />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  16px
-                                </code>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td className="px-4 py-2 text-sm">
-                                <SpacingToken value="24px" name="spaceLarge" />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  24px
-                                </code>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-
-                      {/* Border Radius Table */}
-                      <div className="rounded-lg border border-cararra-200">
-                        <table className="w-full">
-                          <thead>
-                            <tr className="border-b border-cararra-200 bg-cararra-50">
-                              <th className="px-4 py-2 text-left text-xs font-medium text-cararra-600">
-                                Name
-                              </th>
-                              <th className="px-4 py-2 text-left text-xs font-medium text-cararra-600">
-                                Value
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="border-b border-cararra-200">
-                              <td className="px-4 py-2 text-sm">
-                                <NumberToken value="0" name="radiusNone" />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  0
-                                </code>
-                              </td>
-                            </tr>
-                            <tr className="border-b border-cararra-200">
-                              <td className="px-4 py-2 text-sm">
-                                <NumberToken value="4px" name="radiusSmall" />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  4px
-                                </code>
-                              </td>
-                            </tr>
-                            <tr className="border-b border-cararra-200">
-                              <td className="px-4 py-2 text-sm">
-                                <NumberToken value="8px" name="radiusMedium" />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  8px
-                                </code>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td className="px-4 py-2 text-sm">
-                                <NumberToken value="12px" name="radiusLarge" />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  12px
-                                </code>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-
-                      {/* Typography Table */}
-                      <div className="rounded-lg border border-cararra-200">
-                        <table className="w-full">
-                          <thead>
-                            <tr className="border-b border-cararra-200 bg-cararra-50">
-                              <th className="px-4 py-2 text-left text-xs font-medium text-cararra-600">
-                                Name
-                              </th>
-                              <th className="px-4 py-2 text-left text-xs font-medium text-cararra-600">
-                                Value
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="border-b border-cararra-200">
-                              <td className="px-4 py-2 text-sm">
-                                <TypographyToken
-                                  value="14px"
-                                  name="fontSizeSmall"
-                                />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  14px
-                                </code>
-                              </td>
-                            </tr>
-                            <tr className="border-b border-cararra-200">
-                              <td className="px-4 py-2 text-sm">
-                                <TypographyToken
-                                  value="16px"
-                                  name="fontSizeMedium"
-                                />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  16px
-                                </code>
-                              </td>
-                            </tr>
-                            <tr className="border-b border-cararra-200">
-                              <td className="px-4 py-2 text-sm">
-                                <TypographyToken
-                                  value="18px"
-                                  name="fontSizeLarge"
-                                />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  18px
-                                </code>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td className="px-4 py-2 text-sm">
-                                <TypographyToken
-                                  value="24px"
-                                  name="fontSizeXLarge"
-                                />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  24px
-                                </code>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-
-                      {/* Color Tokens Table */}
-                      <div className="rounded-lg border border-cararra-200">
-                        <table className="w-full">
-                          <thead>
-                            <tr className="border-b border-cararra-200 bg-cararra-50">
-                              <th className="px-4 py-2 text-left text-xs font-medium text-cararra-600">
-                                Name
-                              </th>
-                              <th className="px-4 py-2 text-left text-xs font-medium text-cararra-600">
-                                Value
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="border-b border-cararra-200">
-                              <td className="px-4 py-2 text-sm">
-                                <ColorToken
-                                  value="#3b82f6"
-                                  name="primaryBlue"
-                                />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  #3b82f6
-                                </code>
-                              </td>
-                            </tr>
-                            <tr className="border-b border-cararra-200">
-                              <td className="px-4 py-2 text-sm">
-                                <ColorToken
-                                  value="#1e293b"
-                                  name="primaryDark"
-                                />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  #1e293b
-                                </code>
-                              </td>
-                            </tr>
-                            <tr className="border-b border-cararra-200">
-                              <td className="px-4 py-2 text-sm">
-                                <ColorToken
-                                  value="#10b981"
-                                  name="successGreen"
-                                />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  #10b981
-                                </code>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td className="px-4 py-2 text-sm">
-                                <ColorToken
-                                  value="#f59e0b"
-                                  name="warningAmber"
-                                />
-                              </td>
-                              <td className="px-4 py-2 text-sm">
-                                <code className="rounded bg-cararra-100 px-1.5 py-0.5 font-mono text-xs text-cararra-700">
-                                  #f59e0b
-                                </code>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
+                        {SHOWCASE_ITEMS[activeShowcase].content}
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
                 </div>
               </div>
