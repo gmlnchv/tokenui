@@ -14,49 +14,43 @@ import {
   ComponentRegistryBadge,
   BuiltForLogos,
 } from "@/components/brand-badges";
-import { TokenGridBackground } from "@/components/token-grid-background";
+import { SingleTokenHero } from "@/components/single-token-hero";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-cararra-50 relative overflow-hidden">
-      {/* Dynamic Background behind Hero */}
-      <div
-        className="absolute inset-x-0 top-0 h-[800px] md:h-[1200px] w-[150vw] -left-[25vw] select-none pointer-events-none z-0"
-        style={{
-          // Fade out at top-left (for text/nav) and bottom edges
-          maskImage:
-            "radial-gradient(ellipse 90% 80% at 65% 40%, black 20%, transparent 90%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 90% 80% at 65% 40%, black 20%, transparent 90%)",
-        }}
-      >
-        <TokenGridBackground className="opacity-80" />
-      </div>
-
       {/* Hero Section */}
       <section className="relative z-10 pb-16 pt-24 md:pt-32 md:pb-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="max-w-5xl">
-            <div className="mb-10">
-              <ComponentRegistryBadge />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+            {/* Left Column: Text */}
+            <div className="max-w-3xl">
+              <div className="mb-10">
+                <ComponentRegistryBadge />
+              </div>
+
+              <h1 className="font-serif text-3xl leading-[0.82] tracking-tight text-cararra-950 md:text-[5rem] text-balance">
+                <span className="italic">The Art</span> of Design System
+                Documentation.
+              </h1>
+
+              <p className="mt-8 max-w-xl text-lg leading-relaxed text-cararra-600">
+                Beautiful, interactive components for documenting your design
+                tokens — crafted with the precision of a Dutch master.
+              </p>
+
+              <CTAButton href="/docs/components/token" className="mt-10">
+                Get Started
+              </CTAButton>
+
+              <div className="mt-16">
+                <BuiltForLogos />
+              </div>
             </div>
 
-            <h1 className="font-serif text-3xl leading-[0.82] tracking-tight text-cararra-950 md:text-[5rem] text-balance">
-              <span className="italic">The Art</span> of Design System
-              Documentation.
-            </h1>
-
-            <p className="mt-8 max-w-xl text-lg leading-relaxed">
-              Beautiful, interactive components for documenting your design
-              tokens — crafted with the precision of a Dutch master.
-            </p>
-
-            <CTAButton href="/docs/components/token" className="mt-10">
-              Get Started
-            </CTAButton>
-
-            <div className="mt-16">
-              <BuiltForLogos />
+            {/* Right Column: Single Polished Token */}
+            <div className="flex justify-center items-center h-full min-h-[400px]">
+              <SingleTokenHero />
             </div>
           </div>
         </div>
