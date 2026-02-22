@@ -191,8 +191,8 @@ export default function Home() {
               </h1>
 
               <p className="mt-6 md:mt-8 max-w-xl text-base md:text-lg leading-relaxed text-cararra-600 px-4 lg:px-0">
-                Beautiful, interactive components for documenting your design
-                tokens — crafted with the precision of a Dutch master.
+                Beautiful, interactive documentation components for your design
+                tokens following industry standards.
               </p>
 
               <div className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
