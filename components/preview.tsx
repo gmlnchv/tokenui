@@ -85,7 +85,7 @@ export function Preview({ children, code }: PreviewProps) {
       {/* Content Area */}
       <div className="bg-white">
         {activeTab === "preview" ? (
-          <div className="overflow-y-auto p-8 flex flex-col items-center justify-center min-h-[200px] border-t-0">
+          <div className="overflow-y-auto p-8 min-h-[200px] border-t-0">
             {children}
           </div>
         ) : (
