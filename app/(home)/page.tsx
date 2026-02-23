@@ -1,6 +1,14 @@
 "use client";
 
-import { ColorPalette, ColorSwatch } from "@/registry/components/color-palette";
+import {
+  ColorSwatch,
+  ColorSwatchPart,
+} from "@/registry/components/color-palette";
+import {
+  ColorContrast,
+  ColorContrastRatio,
+  ColorContrastBadge,
+} from "@/registry/components/color-contrast";
 import { SpacingToken } from "@/registry/components/spacing-token";
 import { TypographyToken } from "@/registry/components/typography-token";
 import { CTAButton } from "@/components/cta-button";
@@ -22,30 +30,63 @@ const SHOWCASE_ITEMS = [
           <div className="grid gap-4 md:grid-cols-3">
             <ColorSwatch
               value="#3b82f6"
-              className="h-24 w-full rounded-xl border border-cararra-200 shadow-sm"
+              className="h-24 w-full rounded-xl border border-cararra-200 shadow-sm text-white"
             >
-              <div className="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between bg-white/90 backdrop-blur-sm border-t border-cararra-100 rounded-b-xl">
-                <div className="w-16 h-4 bg-cararra-200 rounded animate-pulse" />
-                <div className="w-12 h-4 bg-cararra-200 rounded animate-pulse" />
-              </div>
+              <ColorSwatchPart
+                position="top-left"
+                className="text-sm font-semibold tracking-tight"
+              >
+                Blue 500
+              </ColorSwatchPart>
+              <ColorSwatchPart position="bottom-left" className="pb-1 pl-1">
+                <ColorContrast
+                  against="#ffffff"
+                  className="font-mono bg-black/10 p-1 rounded backdrop-blur-md"
+                >
+                  <ColorContrastRatio />
+                  <ColorContrastBadge variant="icon" className="ml-1" />
+                </ColorContrast>
+              </ColorSwatchPart>
             </ColorSwatch>
             <ColorSwatch
               value="#1e293b"
-              className="h-24 w-full rounded-xl border border-cararra-200 shadow-sm"
+              className="h-24 w-full rounded-xl border border-cararra-200 shadow-sm text-white"
             >
-              <div className="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between bg-white/90 backdrop-blur-sm border-t border-cararra-100 rounded-b-xl">
-                <div className="w-16 h-4 bg-cararra-200 rounded animate-pulse" />
-                <div className="w-12 h-4 bg-cararra-200 rounded animate-pulse" />
-              </div>
+              <ColorSwatchPart
+                position="top-left"
+                className="text-sm font-semibold tracking-tight"
+              >
+                Slate 800
+              </ColorSwatchPart>
+              <ColorSwatchPart position="bottom-left" className="pb-1 pl-1">
+                <ColorContrast
+                  against="#ffffff"
+                  className="font-mono bg-white/10 border border-white/5 p-1 rounded backdrop-blur-md"
+                >
+                  <ColorContrastRatio />
+                  <ColorContrastBadge variant="icon" className="ml-1" />
+                </ColorContrast>
+              </ColorSwatchPart>
             </ColorSwatch>
             <ColorSwatch
               value="#eff6ff"
-              className="h-24 w-full rounded-xl border border-cararra-200 shadow-sm"
+              className="h-24 w-full rounded-xl border border-cararra-200 shadow-sm text-black"
             >
-              <div className="absolute inset-x-0 bottom-0 p-3 flex items-center justify-between bg-white/90 backdrop-blur-sm border-t border-cararra-100 rounded-b-xl">
-                <div className="w-16 h-4 bg-cararra-200 rounded animate-pulse" />
-                <div className="w-12 h-4 bg-cararra-200 rounded animate-pulse" />
-              </div>
+              <ColorSwatchPart
+                position="top-left"
+                className="text-sm font-semibold tracking-tight"
+              >
+                Blue 50
+              </ColorSwatchPart>
+              <ColorSwatchPart position="bottom-left" className="pb-1 pl-1">
+                <ColorContrast
+                  against="#ffffff"
+                  className="font-mono bg-white p-1 rounded shadow-sm border border-cararra-100"
+                >
+                  <ColorContrastRatio />
+                  <ColorContrastBadge variant="icon" className="ml-1" />
+                </ColorContrast>
+              </ColorSwatchPart>
             </ColorSwatch>
           </div>
 
@@ -54,9 +95,22 @@ const SHOWCASE_ITEMS = [
             <div className="w-full h-px bg-cararra-200" />
           </div>
 
-          <ColorPalette
-            colors={["#dbeafe", "#93c5fd", "#60a5fa", "#3b82f6", "#2563eb"]}
-          />
+          <div className="flex overflow-hidden rounded-md border h-16 w-full">
+            {["#dbeafe", "#93c5fd", "#60a5fa", "#3b82f6", "#2563eb"].map(
+              (h) => (
+                <ColorSwatch key={h} value={h} className="group flex-1">
+                  <ColorSwatchPart position="center">
+                    <ColorContrast against="#ffffff">
+                      <ColorContrastBadge
+                        variant="icon"
+                        className="transition-transform group-hover:scale-110 opacity-70 group-hover:opacity-100"
+                      />
+                    </ColorContrast>
+                  </ColorSwatchPart>
+                </ColorSwatch>
+              ),
+            )}
+          </div>
         </div>
       </div>
     ),
@@ -236,7 +290,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="flex items-center flex-1 justify-center max-w-[150px] md:max-w-md">
+              <div className="w-full flex justify-center h-8 md:h-10 items-center">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeShowcase}
@@ -282,7 +336,7 @@ export default function Home() {
                 <div className="mb-6 md:mb-10 shrink-0">
                   <div className="mb-3 md:mb-4 flex items-center gap-2">
                     <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-cararra-400">
-                      Documentation / Acme DS
+                      Acme Design System
                     </span>
                   </div>
                   <div className="space-y-3 md:space-y-4">
@@ -330,7 +384,7 @@ export default function Home() {
                       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                       className="absolute inset-0"
                     >
-                      <div className="scale-[0.85] md:scale-100 origin-top-left transition-transform">
+                      <div className="h-full scale-[0.85] md:scale-100 origin-top-left transition-transform">
                         {SHOWCASE_ITEMS[activeShowcase].content}
                       </div>
                     </motion.div>
