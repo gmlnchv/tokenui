@@ -290,7 +290,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="w-full flex justify-center h-8 md:h-10 items-center">
+              <div className="flex-1 flex justify-center h-8 md:h-10 items-center max-w-[150px] md:max-w-md">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeShowcase}
