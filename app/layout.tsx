@@ -30,6 +30,9 @@ export const metadata: Metadata = {
     default: "Token UI | Design System Documentation Components",
     template: "%s | Token UI",
   },
+  alternates: {
+    canonical: "/",
+  },
   description:
     "Beautiful, interactive documentation components for your design tokens. Built for React, Storybook, and MDX.",
   keywords: [
@@ -41,6 +44,10 @@ export const metadata: Metadata = {
     "storybook",
     "mdx",
     "ui registry",
+    "design system documentation",
+    "token visualization",
+    "shadcn registry",
+    "W3C design tokens",
   ],
   authors: [{ name: "Token UI Team" }],
   creator: "Token UI",
