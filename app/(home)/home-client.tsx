@@ -231,7 +231,7 @@ export function Home() {
     <div className="min-h-screen bg-cararra-50 relative overflow-hidden">
       {/* Hero Section */}
       <section className="relative z-10 pb-12 pt-20 md:pt-32 md:pb-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
             {/* Left Column: Text */}
             <div className="max-w-3xl text-center lg:text-left flex flex-col items-center lg:items-start">
